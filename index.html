@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop on Trustworthy Machine Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:      #12171f;
+      --muted:    #5a6575;
+      --subtle:   #8e99a8;
+      --rule:     #e2e6eb;
+      --bg:       #f8f9fb;
+      --surface:  #ffffff;
+      --accent:   #1d5cff;
+      --accent2:  #0f3dbb;
+      --gold:     #c8923a;
+      --nav-h:    64px;
+      --max-w:    860px;
+      --serif:    'DM Serif Display', Georgia, serif;
+      --sans:     'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(248, 249, 251, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rule);
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -.01em;
+      flex-shrink: 0;
+      margin-right: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.1rem;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 0.4rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: color .15s, background .15s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+      background: rgba(29, 92, 255, 0.07);
+    }
+
+    /* ─── Sections ─── */
+    section {
+      scroll-margin-top: var(--nav-h);
+    }
+
+    .section-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    /* ─── HERO ─── */
+    #home {
+      background: var(--surface);
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% -10%, rgba(29,92,255,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at -10% 110%, rgba(200,146,58,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(29,92,255,0.09);
+      border: 1px solid rgba(29,92,255,0.18);
+      border-radius: 100px;
+      padding: 0.3em 0.9em;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 700px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.6rem;
+      margin-bottom: 2.4rem;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .hero-meta-item svg {
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 620px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .15s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(29,92,255,0.28);
+    }
+    .btn-primary:hover { background: var(--accent2); box-shadow: 0 4px 16px rgba(29,92,255,0.38); transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--rule);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: rgba(29,92,255,0.04); }
+
+    /* ─── Section heading ─── */
+    .sec-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .sec-title {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1.4rem;
+    }
+
+    .sec-rule {
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 2rem;
+    }
+
+    .sec-body {
+      font-size: 0.97rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 680px;
+    }
+
+    /* ─── Topics list ─── */
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .topic-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      font-size: 0.875rem;
+      color: var(--ink);
+      transition: border-color .15s, box-shadow .15s;
+    }
+
+    .topic-chip:hover {
+      border-color: rgba(29,92,255,0.3);
+      box-shadow: 0 2px 10px rgba(29,92,255,0.07);
+    }
+
+    .topic-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ─── CFP ─── */
+    #cfp { background: var(--surface); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+
+    .cfp-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 2.5rem 0;
+    }
+
+    .cfp-card {
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: 1.4rem;
+    }
+
+    .cfp-card-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 0.5rem;
+    }
+
+    .cfp-card-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .cfp-card-sub {
+      font-size: 0.8rem;
+      color: var(--subtle);
+      margin-top: 0.2rem;
+    }
+
+    .cfp-notice {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      background: rgba(29,92,255,0.05);
+      border: 1px solid rgba(29,92,255,0.15);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .cfp-notice svg { flex-shrink: 0; margin-top: 1px; color: var(--accent); }
+
+    /* ─── TIMELINE ─── */
+    #timeline { background: var(--bg); }
+
+    .timeline {
+      margin-top: 2.5rem;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 118px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--rule);
+    }
+
+    .tl-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .tl-date {
+      flex: 0 0 118px;
+      text-align: right;
+      padding-right: 1.6rem;
+      padding-top: 0.05rem;
+    }
+
+    .tl-date-main {
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .tl-date-sub {
+      font-size: 0.74rem;
+      color: var(--subtle);
+    }
+
+    .tl-dot {
+      position: absolute;
+      left: 112px;
+      top: 6px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 2px solid var(--surface);
+      background: var(--rule);
+      flex-shrink: 0;
+      transition: background .2s;
+      z-index: 1;
+    }
+
+    .tl-item.done .tl-dot { background: var(--accent); }
+    .tl-item.current .tl-dot { background: var(--gold); box-shadow: 0 0 0 4px rgba(200,146,58,0.18); }
+
+    .tl-body {
+      padding-left: 2rem;
+    }
+
+    .tl-title {
+      font-weight: 600;
+      font-size: 0.93rem;
+      color: var(--ink);
+    }
+
+    .tl-desc {
+      font-size: 0.82rem;
+      color: var(--subtle);
+      margin-top: 0.1rem;
+    }
+
+    .tl-badge {
+      display: inline-block;
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      padding: 0.15em 0.65em;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      background: rgba(200,146,58,0.12);
+      color: var(--gold);
+    }
+
+    /* ─── PROGRAM ─── */
+    #program { background: var(--surface); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+
+    .program-placeholder {
+      margin-top: 2.5rem;
+      border: 2px dashed var(--rule);
+      border-radius: 16px;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .program-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+    }
+
+    .program-placeholder h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .program-placeholder p {
+      font-size: 0.88rem;
+      color: var(--subtle);
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    /* ─── ORGANIZERS ─── */
+    #organizers { background: var(--bg); }
+
+    .organizers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .organizer-card {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      padding: 1.6rem;
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .organizer-card:hover {
+      box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    .org-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c2d3ff 0%, #e8d5ff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      color: var(--accent2);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .org-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .org-name {
+      font-weight: 600;
+      font-size: 0.97rem;
+      color: var(--ink);
+    }
+
+    .org-affil {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .org-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .org-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.3em 0.7em;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      text-decoration: none;
+      transition: color .15s, border-color .15s;
+    }
+
+    .org-link:hover { color: var(--accent); border-color: rgba(29,92,255,0.3); }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--subtle);
+    }
+
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ─── Utils ─── */
+    .divider {
+      height: 1px;
+      background: var(--rule);
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    @media (max-width: 600px) {
+      .nav-brand { font-size: 0.85rem; }
+      .nav-links a { padding: 0.4rem 0.5rem; font-size: 0.72rem; }
+      .timeline::before { left: 90px; }
+      .tl-date { flex: 0 0 90px; }
+      .tl-dot { left: 84px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#home" class="nav-brand">TML Workshop '25</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#cfp">Call for Papers</a></li>
+        <li><a href="#timeline">Timeline</a></li>
+        <li><a href="#program">Program</a></li>
+        <li><a href="#organizers">Organizers</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ═══ HOME / ABOUT ═══ -->
+  <section id="home">
+    <div class="section-inner">
+      <span class="hero-label">Co-located with NeurIPS 2025</span>
+      <h1 class="hero-title">Workshop on <em>Trustworthy</em> Machine Learning</h1>
+
+      <div class="hero-meta">
+        <span class="hero-meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          December 15, 2025
+        </span>
+        <span class="hero-meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Vancouver, BC, Canada
+        </span>
+        <span class="hero-meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Full Day · 9:00 AM – 6:00 PM
+        </span>
+      </div>
+
+      <p class="hero-desc">
+        This workshop brings together researchers and practitioners working at the intersection of machine learning reliability, fairness, robustness, and privacy. We aim to foster interdisciplinary dialogue on building AI systems that are safe, accountable, and aligned with human values.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#cfp" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Submit a Paper
+        </a>
+        <a href="#organizers" class="btn btn-outline">Meet the Organizers</a>
+      </div>
+
+      <!-- Topics -->
+      <div style="margin-top: 3.5rem;">
+        <p class="sec-eyebrow">Topics of Interest</p>
+        <div class="topics-grid">
+          <div class="topic-chip"><span class="topic-dot"></span>Adversarial robustness &amp; attacks</div>
+          <div class="topic-chip"><span class="topic-dot"></span>Differential privacy in ML</div>
+          <div class="topic-chip"><span class="topic-dot"></span>Fairness &amp; algorithmic bias</div>
+          <div class="topic-chip"><span class="topic-dot"></span>Uncertainty quantification</div>
+          <div class="topic-chip"><span class="topic-dot"></span>Interpretability &amp; explainability</div>
+          <div class="topic-chip"><span class="topic-dot"></span>AI alignment &amp; value learning</div>
+          <div class="topic-chip"><span class="topic-dot"></span>Federated &amp; collaborative learning</div>
+          <div class="topic-chip"><span class="topic-dot"></span>Auditing &amp; red-teaming LLMs</div>
+          <div class="topic-chip"><span class="topic-dot"></span>Watermarking &amp; content provenance</div>
+          <div class="topic-chip"><span class="topic-dot"></span>Human-AI collaboration</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ CALL FOR PAPERS ═══ -->
+  <section id="cfp">
+    <div class="section-inner">
+      <p class="sec-eyebrow">Call for Papers</p>
+      <h2 class="sec-title">Submit Your Work</h2>
+      <div class="sec-rule"></div>
+
+      <p class="sec-body">
+        We invite submissions of original research on all aspects of trustworthy machine learning. We welcome both work-in-progress and mature research. Accepted papers will be presented as posters, with a selection invited for spotlight talks. Submissions will be double-blind peer reviewed.
+      </p>
+
+      <div class="cfp-cards">
+        <div class="cfp-card">
+          <div class="cfp-card-label">Submission Deadline</div>
+          <div class="cfp-card-value">September 12, 2025</div>
+          <div class="cfp-card-sub">11:59 PM AoE</div>
+        </div>
+        <div class="cfp-card">
+          <div class="cfp-card-label">Notification Date</div>
+          <div class="cfp-card-value">October 10, 2025</div>
+          <div class="cfp-card-sub">Camera-ready Oct 30</div>
+        </div>
+        <div class="cfp-card">
+          <div class="cfp-card-label">Format</div>
+          <div class="cfp-card-value">4–8 pages</div>
+          <div class="cfp-card-sub">NeurIPS style, excl. references</div>
+        </div>
+        <div class="cfp-card">
+          <div class="cfp-card-label">Platform</div>
+          <div class="cfp-card-value">OpenReview</div>
+          <div class="cfp-card-sub">Double-blind</div>
+        </div>
+      </div>
+
+      <h3 style="font-family: var(--serif); font-size:1.2rem; margin-bottom:1rem; color: var(--ink);">Submission Guidelines</h3>
+      <p class="sec-body" style="margin-bottom:1rem;">
+        Papers must be submitted in PDF format using the official NeurIPS 2025 LaTeX template. Author names and affiliations must be omitted for double-blind review. Submissions that are concurrently under review at other venues are not accepted. There are no proceedings — accepted papers will be hosted on this website.
+      </p>
+      <p class="sec-body">
+        We also encourage the submission of non-archival extended abstracts (up to 2 pages) for recent work published elsewhere or work-in-progress that would benefit from community feedback.
+      </p>
+
+      <div class="cfp-notice">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Workshop papers are <strong>non-archival</strong>. Authors retain full copyright and may submit extended versions to journals or conferences.</span>
+      </div>
+
+      <div style="margin-top:2rem;">
+        <a href="#" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Submit on OpenReview
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ TIMELINE ═══ -->
+  <section id="timeline">
+    <div class="section-inner">
+      <p class="sec-eyebrow">Important Dates</p>
+      <h2 class="sec-title">Workshop Timeline</h2>
+      <div class="sec-rule"></div>
+      <p class="sec-body">All deadlines are 11:59 PM Anywhere on Earth (AoE = UTC−12).</p>
+
+      <div class="timeline">
+
+        <div class="tl-item done">
+          <div class="tl-date">
+            <div class="tl-date-main">Jul 15</div>
+            <div class="tl-date-sub">2025</div>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Workshop Announced</div>
+            <div class="tl-desc">Workshop accepted and announced at NeurIPS 2025.</div>
+          </div>
+        </div>
+
+        <div class="tl-item done">
+          <div class="tl-date">
+            <div class="tl-date-main">Aug 1</div>
+            <div class="tl-date-sub">2025</div>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Submission Portal Opens</div>
+            <div class="tl-desc">OpenReview submission system opens for authors.</div>
+          </div>
+        </div>
+
+        <div class="tl-item current">
+          <div class="tl-date">
+            <div class="tl-date-main">Sep 12</div>
+            <div class="tl-date-sub">2025</div>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Paper Submission Deadline <span class="tl-badge">Now Open</span></div>
+            <div class="tl-desc">Full papers (4–8 pages) and extended abstracts due.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-date">
+            <div class="tl-date-main">Oct 10</div>
+            <div class="tl-date-sub">2025</div>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Author Notification</div>
+            <div class="tl-desc">Acceptance decisions sent to authors.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-date">
+            <div class="tl-date-main">Oct 30</div>
+            <div class="tl-date-sub">2025</div>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Camera-Ready Deadline</div>
+            <div class="tl-desc">Final versions of accepted papers due.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-date">
+            <div class="tl-date-main">Dec 15</div>
+            <div class="tl-date-sub">2025</div>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="tl-title">Workshop Day</div>
+            <div class="tl-desc">Full-day workshop at NeurIPS 2025, Vancouver.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ PROGRAM ═══ -->
+  <section id="program">
+    <div class="section-inner">
+      <p class="sec-eyebrow">Program</p>
+      <h2 class="sec-title">Schedule &amp; Speakers</h2>
+      <div class="sec-rule"></div>
+      <p class="sec-body">The full workshop program will be announced after the review process is complete. Stay tuned for invited speakers, spotlight talks, and panel details.</p>
+
+      <div class="program-placeholder">
+        <div class="program-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8e99a8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <h3>Program Coming Soon</h3>
+        <p>The schedule, invited speakers, and accepted papers will be posted here after October 2025.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ ORGANIZERS ═══ -->
+  <section id="organizers">
+    <div class="section-inner">
+      <p class="sec-eyebrow">Organizers</p>
+      <h2 class="sec-title">Meet the Team</h2>
+      <div class="sec-rule"></div>
+      <p class="sec-body">The workshop is organized by a multidisciplinary team of researchers from academia and industry.</p>
+
+      <div class="organizers-grid">
+
+        <!-- Organizer 1 -->
+        <div class="organizer-card">
+          <div class="org-avatar">
+            <!-- Replace src with actual photo: <img src="photos/alice.jpg" alt="Alice Chen"> -->
+            A
+          </div>
+          <div class="org-name">Alice Chen</div>
+          <div class="org-affil">MIT CSAIL</div>
+          <div class="org-links">
+            <a href="mailto:alice@mit.edu" class="org-link">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="https://people.csail.mit.edu/alice" target="_blank" class="org-link">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              Website
+            </a>
+            <a href="https://scholar.google.com" target="_blank" class="org-link">Scholar</a>
+          </div>
+        </div>
+
+        <!-- Organizer 2 -->
+        <div class="organizer-card">
+          <div class="org-avatar" style="background: linear-gradient(135deg,#c6f0e0 0%,#d2f0ff 100%); color: #0c6e50;">
+            B
+          </div>
+          <div class="org-name">Ben Okafor</div>
+          <div class="org-affil">Google DeepMind</div>
+          <div class="org-links">
+            <a href="mailto:bokafor@google.com" class="org-link">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="https://benokafor.dev" target="_blank" class="org-link">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              Website
+            </a>
+          </div>
+        </div>
+
+        <!-- Organizer 3 -->
+        <div class="organizer-card">
+          <div class="org-avatar" style="background: linear-gradient(135deg,#ffe8c6 0%,#ffd6e0 100%); color: #8c3a0a;">
+            C
+          </div>
+          <div class="org-name">Clara Möller</div>
+          <div class="org-affil">ETH Zürich</div>
+          <div class="org-links">
+            <a href="mailto:clara.moller@ethz.ch" class="org-link">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="https://claramoller.ch" target="_blank" class="org-link">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              Website
+            </a>
+            <a href="https://twitter.com/claramoller_ml" target="_blank" class="org-link">Twitter</a>
+          </div>
+        </div>
+
+        <!-- Organizer 4 -->
+        <div class="organizer-card">
+          <div class="org-avatar" style="background: linear-gradient(135deg,#e8daff 0%,#d6e8ff 100%); color: #4a1e8c;">
+            D
+          </div>
+          <div class="org-name">David Park</div>
+          <div class="org-affil">Stanford HAI</div>
+          <div class="org-links">
+            <a href="mailto:dpark@cs.stanford.edu" class="org-link">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+            <a href="https://davidpark.cs.stanford.edu" target="_blank" class="org-link">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              Website
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Contact note -->
+      <div class="cfp-notice" style="margin-top: 2.5rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>For general inquiries, contact us at <a href="mailto:tml-workshop-2025@googlegroups.com" style="color: var(--accent); text-decoration: none;">tml-workshop-2025@googlegroups.com</a></span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <p>© 2025 TML Workshop · Co-located with <a href="https://neurips.cc" target="_blank">NeurIPS 2025</a> · Vancouver, Canada</p>
+  </footer>
+
+
+  <!-- ═══ SCROLL SPY ═══ -->
+  <script>
+    const sections = document.querySelectorAll('section[id]');
+    const links = document.querySelectorAll('.nav-links a');
+    const navH = 64;
+
+    function onScroll() {
+      let current = '';
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top <= navH + 10) current = sec.id;
+      });
+      links.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+
+</body>
+</html>
