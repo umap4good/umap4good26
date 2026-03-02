@@ -7,569 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --sand:      #fdf6ee;
-      --warm-50:   #fef9f4;
-      --warm-100:  #f9efe3;
-      --warm-200:  #f0dcc8;
-      --warm-300:  #dfc4a5;
-      --ink:       #2e2217;
-      --ink-soft:  #5c4a38;
-      --muted:     #8a7565;
-      --subtle:    #b4a494;
-      --rule:      #e8d9c9;
-      --accent:    #c45e2a;
-      --accent-lt: #f0a07a;
-      --teal:      #2e7d72;
-      --teal-lt:   #d0ece9;
-      --gold:      #c8923a;
-      --gold-lt:   #fdefd6;
-      --nav-h:     64px;
-      --max-w:     880px;
-      --serif:     'Lora', Georgia, serif;
-      --sans:      'Nunito', system-ui, sans-serif;
-      --radius:    14px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--sand);
-      color: var(--ink);
-      font-family: var(--sans);
-      font-weight: 400;
-      line-height: 1.75;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ─── NAV ─── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: var(--nav-h);
-      background: rgba(253, 246, 238, 0.9);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--rule);
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-inner {
-      max-width: var(--max-w);
-      width: 100%;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav-brand {
-      font-family: var(--serif);
-      font-size: 1rem;
-      font-style: italic;
-      color: var(--accent);
-      text-decoration: none;
-      flex-shrink: 0;
-      margin-right: auto;
-      letter-spacing: -0.01em;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 0.15rem;
-    }
-
-    .nav-links a {
-      display: block;
-      padding: 0.38rem 0.8rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      color: var(--muted);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: color .15s, background .15s;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--accent);
-      background: rgba(196,94,42,0.08);
-    }
-
-    /* ─── Section scaffolding ─── */
-    section { scroll-margin-top: var(--nav-h); }
-
-    .section-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
-
-    /* ─── Shared heading pieces ─── */
-    .eyebrow {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 0.65rem;
-    }
-
-    h2.sec-title {
-      font-family: var(--serif);
-      font-size: clamp(1.75rem, 3vw, 2.4rem);
-      line-height: 1.2;
-      letter-spacing: -0.015em;
-      color: var(--ink);
-      margin-bottom: 1.2rem;
-    }
-
-    .sec-rule {
-      width: 36px;
-      height: 3px;
-      background: var(--warm-300);
-      border-radius: 2px;
-      margin-bottom: 1.8rem;
-    }
-
-    .sec-body {
-      font-size: 0.97rem;
-      color: var(--ink-soft);
-      line-height: 1.85;
-      max-width: 660px;
-    }
-
-    /* ─── HOME ─── */
-    #home {
-      background: var(--warm-50);
-      border-bottom: 1px solid var(--rule);
-      position: relative;
-      overflow: hidden;
-    }
-
-    #home::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 55% 70% at 95% 0%, rgba(196,94,42,0.07) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 50% at 0% 100%, rgba(46,125,114,0.07) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--teal);
-      background: var(--teal-lt);
-      border-radius: 100px;
-      padding: 0.3em 0.9em;
-      margin-bottom: 1.6rem;
-    }
-
-    h1.hero-title {
-      font-family: var(--serif);
-      font-size: clamp(2.1rem, 5vw, 3.2rem);
-      line-height: 1.18;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      max-width: 680px;
-      margin-bottom: 1.4rem;
-    }
-
-    h1.hero-title em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.4rem;
-      margin-bottom: 2rem;
-    }
-
-    .meta-pill {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .meta-pill svg { color: var(--accent-lt); flex-shrink: 0; }
-
-    .hero-desc {
-      font-size: 1.02rem;
-      color: var(--ink-soft);
-      max-width: 600px;
-      line-height: 1.85;
-      margin-bottom: 2.4rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 0.9rem;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.7rem 1.35rem;
-      border-radius: 10px;
-      font-size: 0.875rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all .15s;
-      border: none;
-      cursor: pointer;
-      font-family: var(--sans);
-    }
-
-    .btn-warm {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 2px 12px rgba(196,94,42,0.25);
-    }
-    .btn-warm:hover { background: #a84d20; box-shadow: 0 4px 18px rgba(196,94,42,0.35); transform: translateY(-1px); }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--ink-soft);
-      border: 1.5px solid var(--rule);
-    }
-    .btn-ghost:hover { border-color: var(--warm-300); background: var(--warm-100); color: var(--ink); }
-
-    /* Topics */
-    .topics-wrap { margin-top: 3.5rem; }
-    .topics-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); margin-bottom: 0.9rem; }
-
-    .topics-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .topic-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.45em 0.9em;
-      background: var(--warm-100);
-      border: 1px solid var(--rule);
-      border-radius: 100px;
-      font-size: 0.83rem;
-      color: var(--ink-soft);
-      transition: background .15s, border-color .15s;
-    }
-
-    .topic-tag:hover { background: var(--warm-200); border-color: var(--warm-300); }
-    .topic-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent-lt); flex-shrink: 0; }
-
-    /* ─── CFP ─── */
-    #cfp { background: var(--warm-100); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-
-    .info-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-      gap: 0.9rem;
-      margin: 2.2rem 0;
-    }
-
-    .info-card {
-      background: var(--warm-50);
-      border: 1px solid var(--rule);
-      border-radius: var(--radius);
-      padding: 1.3rem;
-    }
-
-    .info-card-label {
-      font-size: 0.67rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--subtle);
-      margin-bottom: 0.4rem;
-    }
-
-    .info-card-value {
-      font-family: var(--serif);
-      font-size: 1rem;
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    .info-card-sub {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 0.15rem;
-    }
-
-    .notice-box {
-      display: flex;
-      gap: 0.75rem;
-      align-items: flex-start;
-      background: var(--gold-lt);
-      border: 1px solid #e8c87a;
-      border-radius: var(--radius);
-      padding: 1rem 1.2rem;
-      margin-top: 1.5rem;
-      font-size: 0.875rem;
-      color: #6b4e10;
-    }
-
-    .notice-box svg { flex-shrink: 0; margin-top: 1px; color: var(--gold); }
-
-    .cfp-sub-title {
-      font-family: var(--serif);
-      font-size: 1.15rem;
-      color: var(--ink);
-      margin: 2rem 0 0.8rem;
-    }
-
-    /* ─── TIMELINE ─── */
-    #timeline { background: var(--warm-50); }
-
-    .timeline {
-      position: relative;
-      margin-top: 2.5rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 108px;
-      top: 8px;
-      bottom: 8px;
-      width: 1px;
-      background: var(--rule);
-    }
-
-    .tl-item {
-      display: flex;
-      align-items: flex-start;
-      position: relative;
-      margin-bottom: 1.9rem;
-    }
-
-    .tl-date {
-      flex: 0 0 108px;
-      text-align: right;
-      padding-right: 1.5rem;
-      padding-top: 0.05rem;
-    }
-
-    .tl-date-main {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--ink-soft);
-      white-space: nowrap;
-    }
-
-    .tl-date-sub {
-      font-size: 0.72rem;
-      color: var(--subtle);
-    }
-
-    .tl-dot {
-      position: absolute;
-      left: 102px;
-      top: 5px;
-      width: 13px;
-      height: 13px;
-      border-radius: 50%;
-      border: 2px solid var(--warm-50);
-      background: var(--rule);
-      z-index: 1;
-    }
-
-    .tl-item.done .tl-dot    { background: var(--teal); }
-    .tl-item.current .tl-dot { background: var(--accent); box-shadow: 0 0 0 4px rgba(196,94,42,0.15); }
-
-    .tl-body { padding-left: 2rem; }
-
-    .tl-title {
-      font-weight: 700;
-      font-size: 0.92rem;
-      color: var(--ink);
-    }
-
-    .tl-desc {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-top: 0.1rem;
-    }
-
-    .tl-badge {
-      display: inline-block;
-      font-size: 0.62rem;
-      font-weight: 800;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      background: rgba(196,94,42,0.1);
-      color: var(--accent);
-      border-radius: 100px;
-      padding: 0.15em 0.6em;
-      margin-left: 0.45rem;
-      vertical-align: middle;
-    }
-
-    /* ─── PROGRAM ─── */
-    #program { background: var(--warm-100); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-
-    .program-placeholder {
-      margin-top: 2.5rem;
-      border: 2px dashed var(--warm-300);
-      border-radius: 20px;
-      padding: 4.5rem 2rem;
-      text-align: center;
-      background: var(--warm-50);
-    }
-
-    .prog-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      background: var(--warm-200);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.2rem;
-    }
-
-    .program-placeholder h3 {
-      font-family: var(--serif);
-      font-size: 1.3rem;
-      color: var(--ink);
-      margin-bottom: 0.5rem;
-    }
-
-    .program-placeholder p {
-      font-size: 0.87rem;
-      color: var(--muted);
-      max-width: 360px;
-      margin: 0 auto;
-    }
-
-    /* ─── ORGANIZERS ─── */
-    #organizers { background: var(--warm-50); }
-
-    .org-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 1.3rem;
-      margin-top: 2.5rem;
-    }
-
-    .org-card {
-      background: var(--warm-100);
-      border: 1px solid var(--rule);
-      border-radius: var(--radius);
-      padding: 1.6rem;
-      transition: box-shadow .2s, transform .2s;
-    }
-
-    .org-card:hover {
-      box-shadow: 0 8px 28px rgba(0,0,0,0.07);
-      transform: translateY(-2px);
-    }
-
-    .org-avatar {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: var(--warm-200);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--serif);
-      font-size: 1.8rem;
-      font-style: italic;
-      color: var(--muted);
-      margin-bottom: 1rem;
-      overflow: hidden;
-    }
-
-    .org-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .org-name {
-      font-weight: 700;
-      font-size: 0.97rem;
-      color: var(--ink);
-    }
-
-    .org-affil {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 0.1rem;
-      margin-bottom: 1rem;
-    }
-
-    .org-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-    }
-
-    .org-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.3em 0.7em;
-      border-radius: 7px;
-      font-size: 0.74rem;
-      font-weight: 600;
-      color: var(--muted);
-      background: var(--warm-50);
-      border: 1px solid var(--rule);
-      text-decoration: none;
-      transition: color .15s, border-color .15s, background .15s;
-    }
-
-    .org-link:hover { color: var(--accent); border-color: rgba(196,94,42,0.3); background: #fff; }
-
-    /* ─── Footer ─── */
-    footer {
-      border-top: 1px solid var(--rule);
-      padding: 2.4rem 2rem;
-      text-align: center;
-      font-size: 0.79rem;
-      color: var(--subtle);
-    }
-
-    footer a { color: var(--muted); text-decoration: none; }
-    footer a:hover { color: var(--accent); }
-
-    /* ─── Responsive ─── */
-    @media (max-width: 580px) {
-      .nav-brand { font-size: 0.85rem; }
-      .nav-links a { padding: 0.38rem 0.5rem; font-size: 0.72rem; }
-      .timeline::before { left: 84px; }
-      .tl-date { flex: 0 0 84px; }
-      .tl-dot { left: 78px; }
-    }
-  </style> -->
+  
 
 
 
@@ -1249,96 +687,122 @@
   <section id="cfp">
     <div class="section-inner">
       <span class="eyebrow">Call for Papers</span>
-      <h2 class="sec-title">Submit Your Work</h2>
+      <h2 class="sec-title">UMAP4Good 2026</h2>
       <div class="sec-rule"></div>
 
-      <p class="sec-body">
-        <!--
-        [Opening paragraph: describe what kinds of submissions are welcome — original research, position papers, extended abstracts, etc. Mention the review process (single-blind / double-blind), whether the workshop is archival or non-archival, and what accepted papers receive (poster, spotlight talk, etc.).]
-        -->
-        TBA
+      <p class="sec-body" style="margin-bottom: 1.2rem;">
+        <em>First International Workshop on User Modeling, Personalization, and Adaptive Systems for Sustainability and Social Good</em>
       </p>
 
-      <!-- <div class="info-cards">
-        <div class="info-card">
-          <div class="info-card-label">Submission Deadline</div>
-          <div class="info-card-value">[Month DD, YYYY]</div>
-          <div class="info-card-sub">11:59 PM AoE</div>
-        </div>
-        <div class="info-card">
-          <div class="info-card-label">Notification Date</div>
-          <div class="info-card-value">[Month DD, YYYY]</div>
-          <div class="info-card-sub">Camera-ready [Month DD]</div>
-        </div>
-        <div class="info-card">
-          <div class="info-card-label">Page Limit</div>
-          <div class="info-card-value">[N–M pages]</div>
-          <div class="info-card-sub">[Template name], excl. references</div>
-        </div>
-        <div class="info-card">
-          <div class="info-card-label">Submission Platform</div>
-          <div class="info-card-value">[Platform Name]</div>
-          <div class="info-card-sub">[Single / Double]-blind</div>
-        </div>
-      </div> -->
+      <p class="sec-body" style="margin-bottom: 1.2rem;">
+        We invite submissions to the First International Workshop on User Modeling, Personalization, and Adaptive Systems for Sustainability and Social Good (UMAP4Good 2026), held in conjunction with the ACM UMAP 2026 conference.
+      </p>
 
-      <div class="info-cards">
+      <p class="sec-body" style="margin-bottom: 1.5rem;">
+        Details &amp; submission guidelines can be found here: <a href="http://umap4good.github.io/umap4good26/" target="_blank" style="color: var(--accent); text-decoration: underline;">http://umap4good.github.io/umap4good26/</a>
+      </p>
 
-        <div class="info-card">
-          <div class="info-card-label">1st Call for Workshop Papers</div>
-          <div class="info-card-value">March 2, 2026</div>
-          <div class="info-card-sub">(Attempt)</div>
+      <p class="sec-body" style="margin-bottom: 2rem;">
+        In an era where personalization technologies increasingly shape human decision-making, integrating sustainability and social good into user-adaptive systems has become an essential challenge. Adaptive systems influence choices across many contexts—including health, mobility, education, and media consumption—positioning them as key technologies for supporting the UN Sustainable Development Goals. UMAP4Good 2026 provides an interdisciplinary venue to explore how personalization can support sustainable behaviors, ethical decision-making, and positive societal impact.
+      </p>
+
+      <h3 class="cfp-sub-title">Topics of Interest</h3>
+      <p class="sec-body" style="margin-bottom: 1rem;">We welcome submissions focused on sustainability perspectives, including but not limited to:</p>
+
+      <div style="margin-bottom: 2rem;">
+
+        <div style="margin-bottom: 1.5rem;">
+          <div style="font-family: var(--serif); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.6rem;">User Modeling and Adaptation for Sustainability</div>
+          <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.4rem;">
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Modeling users' sustainable preferences and behavior change patterns.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Personalized nudging and persuasive systems designed for sustainability.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Context-aware sustainability recommendations.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Energy-efficient modeling and "Green AI" for personalization.</li>
+          </ul>
         </div>
 
-        <div class="info-card">
-          <div class="info-card-label">2nd Call for Workshop Papers</div>
-          <div class="info-card-value">March 16, 2026</div>
-          <div class="info-card-sub">(Attempt)</div>
+        <div style="margin-bottom: 1.5rem;">
+          <div style="font-family: var(--serif); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.6rem;">Responsible and Sustainable Adaptive Systems</div>
+          <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.4rem;">
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Multi-stakeholder adaptive systems.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Fairness, inclusion, and long-term impact modeling.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Explainability and trustworthy personalized systems.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Privacy, safety, and ethical considerations.</li>
+          </ul>
         </div>
 
-        <div class="info-card">
-          <div class="info-card-label">Workshop Paper Submission</div>
-          <div class="info-card-value">April 9, 2026</div>
-          <div class="info-card-sub">(Attempt)</div>
+        <div style="margin-bottom: 1.5rem;">
+          <div style="font-family: var(--serif); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.6rem;">Evaluation and Methodology</div>
+          <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.4rem;">
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Metrics beyond accuracy, specifically focusing on long-term, societal, and environmental impact.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Simulation-based evaluation for behavior change.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Reproducible pipelines and sustainability-aware benchmarks.</li>
+          </ul>
         </div>
 
-        <div class="info-card">
-          <div class="info-card-label">Notification</div>
-          <div class="info-card-value">April 28, 2026</div>
-          <div class="info-card-sub">(Attempt)</div>
-        </div>
-
-        <div class="info-card">
-          <div class="info-card-label">Camera-Ready for Authors</div>
-          <div class="info-card-value">May 7, 2025</div>
-          <div class="info-card-sub">(Attempt)</div>
+        <div style="margin-bottom: 1.5rem;">
+          <div style="font-family: var(--serif); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.6rem;">Application Domains</div>
+          <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.4rem;">
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Education and digital well-being.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Health and lifestyle.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Media, misinformation, and social platforms.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Smart environments, mobility, and tourism.</li>
+            <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Agriculture, energy, and resource management.</li>
+          </ul>
         </div>
 
       </div>
 
-
-
-      <h3 class="cfp-sub-title">Submission Guidelines</h3>
-      <p class="sec-body" style="margin-bottom: 0.9rem;">
-        <!-- [Paragraph with formatting requirements: template to use, anonymization rules, concurrent submission policy, file format, etc.] -->
-         TBA
-      </p>
-      <p class="sec-body">
-        <!-- [Optional second paragraph: extended abstracts policy, invited papers, or any special tracks.] -->
-         TBA
+      <h2 class="cfp-sub-title">Submission Guidelines</h2>
+      <p class="sec-body" style="margin-bottom: 1rem;">
+        We welcome works at various stages of development, including applied systems, empirical results, or theoretically grounded positions. All submissions must be written in English and follow the CEUR template and LNCS guidelines. The review process is single-blind.
       </p>
 
-      <!-- <div class="notice-box">
+      <p class="sec-body" style="margin-bottom: 0.6rem; font-weight: 600; color: var(--ink);">Submission Categories:</p>
+
+      <div style="margin-bottom: 1rem;">
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-card-label">Full Papers</div>
+            <div class="info-card-value">10 pages</div>
+            <div class="info-card-sub">Plus references</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-label">Reproducibility Papers</div>
+            <div class="info-card-value">10 pages</div>
+            <div class="info-card-sub">Plus references</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-label">Short Papers</div>
+            <div class="info-card-value">5 pages</div>
+            <div class="info-card-sub">Plus references</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-label">Extended Abstracts</div>
+            <div class="info-card-value">1 page</div>
+            <div class="info-card-sub">Views, ongoing projects, or already-published work</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice-box" style="margin-bottom: 2.5rem;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>[Important notice — e.g. archival status, dual-submission rules, or scope clarification.]</span>
-      </div> -->
+        <span>Accepted papers (full, reproducibility, and short) will be published in the proceedings. Extended abstracts are editorially reviewed for workshop presentation only and will not be included in the proceedings.</span>
+      </div>
 
-      <!-- <div style="margin-top: 2rem;">
-        <a href="#" class="btn btn-warm">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Submit on [Platform Name]
-        </a>
-      </div> -->
+      <h1 class="cfp-sub-title">Workshop Format</h1>
+      <p class="sec-body" style="margin-bottom: 1rem;">
+        UMAP4Good 2026 is an in-person event. 
+      </p>
+
+<!--
+      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem;">
+        <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Paper presentations (10 minutes each).</li>
+        <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>Moderated discussions focused on collective reflection and brainstorming.</li>
+        <li style="display: flex; gap: 0.7rem; font-size: 0.95rem; color: var(--ink-soft);"><span style="color: var(--accent); flex-shrink: 0;">·</span>A keynote talk providing a state-of-the-art overview of sustainability in AI and UMAP research.</li>
+      </ul>
+-->
+
     </div>
   </section>
 
